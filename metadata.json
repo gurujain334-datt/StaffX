@@ -1,0 +1,6 @@
+{
+  "name": "StaffX",
+  "description": "A platform for verified event staffing and workforce management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-horizon-glow: horizon-glow 8s ease-in-out infinite alternate;
+  --animate-radar-slow: radar-spin 24s linear infinite;
+  --animate-radar-reverse: radar-spin-reverse 18s linear infinite;
+  --animate-cyber-scan: cyber-scan 6s linear infinite;
+
+  @keyframes horizon-glow {
+    0% { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 0.8; transform: scale(1.05); }
+  }
+  @keyframes radar-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes radar-spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+  @keyframes cyber-scan {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+}
+
+/* Light mode overrides (when .dark class is NOT present on html) */
+html:not(.dark) {
+  --color-slate-950: #f8fafc; /* Clean off-white page background */
+  --color-slate-900: #ffffff; /* Crisp white card background */
+  --color-slate-850: #f1f5f9; /* Subtle gray highlights */
+  --color-slate-800: #e2e8f0; /* Soft card border / divider lines */
+  --color-slate-700: #cbd5e1; /* Hover borders */
+  --color-slate-600: #94a3b8; /* Secondary details */
+  --color-slate-500: #64748b; /* Secondary text / captions */
+  --color-slate-400: #475569; /* Body copy / helper descriptions */
+  --color-slate-300: #334155; /* Content paragraphs */
+  --color-slate-200: #1e293b; /* Strong text / subheadings */
+  --color-slate-100: #0f172a; /* Main bold titles */
+  --color-slate-50: #020617;  /* High contrast accents */
+  
+  /* Soft light-mode pastel backdrops for alerts / badges / glowing grids */
+  --color-indigo-950: #eef2ff; /* Soft pastel indigo background */
+  --color-indigo-900: #e0e7ff; 
+  --color-indigo-800: #c7d2fe; 
+  
+  --color-emerald-950: #ecfdf5; /* Soft pastel emerald background */
+  --color-emerald-900: #d1fae5;
+
+  --color-teal-950: #f0fdfa; /* Soft pastel teal background */
+  --color-teal-900: #ccfbf1;
+
+  --color-cyan-950: #ecfeff; /* Soft pastel cyan background */
+  --color-cyan-900: #cffafe;
+
+  --color-amber-950: #fffbeb; /* Soft pastel amber background */
+  --color-amber-900: #fef3c7;
+
+  --color-red-950: #fef2f2; /* Soft pastel red background */
+  --color-red-900: #fee2e2;
+
+  /* Rich high-contrast active text colors in light mode */
+  --color-indigo-400: #4f46e5; /* Professional deep indigo */
+  --color-indigo-300: #4338ca;
+  
+  --color-emerald-400: #059669; /* Professional deep emerald */
+  --color-emerald-300: #047857;
+  
+  --color-teal-400: #0d9488; /* Professional deep teal */
+  --color-teal-300: #0f766e;
+
+  --color-cyan-400: #0891b2; /* Professional deep cyan */
+  --color-cyan-300: #0e7490;
+
+  --color-amber-400: #d97706; /* Professional deep amber */
+  --color-amber-300: #b45309;
+
+  --color-red-400: #dc2626; /* Professional deep red */
+  --color-red-300: #b91c1c;
+
+  --grid-color: rgba(15, 23, 42, 0.04);
+}
+
+/* Dark mode values (when .dark is active) */
+html.dark {
+  --color-slate-950: #020617;
+  --color-slate-900: #0f172a;
+  --color-slate-850: #172554;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+  
+  --grid-color: rgba(255, 255, 255, 0.03);
+}
+
+@utility bg-grid-subtle {
+  background-image: 
+    linear-gradient(to right, var(--grid-color, rgba(255, 255, 255, 0.03)) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color, rgba(255, 255, 255, 0.03)) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@layer base {
+  html, body {
+    @apply antialiased transition-colors duration-200;
+  }
+  
+  html {
+    @apply bg-slate-50 text-slate-900;
+  }
+  
+  html.dark {
+    @apply bg-slate-950 text-slate-100;
+  }
+
+  /* Prevent text-white from staying white (invisible) on light backgrounds */
+  html:not(.dark) .text-white:not(button):not(.bg-indigo-600):not(.bg-indigo-500):not(.bg-emerald-600):not(.bg-emerald-500):not(.bg-blue-600):not(.bg-red-600):not(.bg-purple-600):not(.bg-amber-500):not(.bg-indigo-950):not(.bg-emerald-950) {
+    color: #0f172a !important;
+  }
+
+  /* Force shadows in light mode to remain extremely soft, elegant and clean */
+  html:not(.dark) [class*="shadow-"] {
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 8px -1px rgba(15, 23, 42, 0.02) !important;
+  }
+
+  /* Force headers to remain visible dark slate in light mode */
+  html:not(.dark) h1,
+  html:not(.dark) h2,
+  html:not(.dark) h3,
+  html:not(.dark) h4,
+  html:not(.dark) h5,
+  html:not(.dark) h6 {
+    color: #0f172a !important;
+  }
+}
